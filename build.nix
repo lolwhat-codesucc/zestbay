@@ -13,6 +13,7 @@
     gtk3,
     cmake,
     makeWrapper,
+    openssl,
 }: let
     version = (builtins.fromTOML (builtins.readFile ./Cargo.toml)).package.version + "-git";
     src = nix-gitignore.gitignoreSource [] ./.;
@@ -41,6 +42,7 @@ in
             qt6.wrapQtAppsHook
             qt6.qmake
             makeWrapper
+            openssl
         ];
         buildInputs =
             [
@@ -69,9 +71,9 @@ in
         '';
 
         postInstall = ''
-            install -Dm444 $src/zestbay.desktop $out/share/applications/zestbay.desktop
-            install -Dm644 $src/images/zesticon.png $out/share/icons/hicolor/256x256/apps/zestbay.png
-            install -Dm644 $src/images/zesttray.png $out/share/icons/hicolor/256x256/apps/zestbay-tray.png
+            install -Dm444 zestbay.desktop $out/share/applications/zestbay.desktop
+            install -Dm644 images/zesticon.png $out/share/icons/hicolor/256x256/apps/zestbay.png
+            install -Dm644 images/zesttray.png $out/share/icons/hicolor/256x256/apps/zestbay-tray.png
         '';
 
         meta = {
